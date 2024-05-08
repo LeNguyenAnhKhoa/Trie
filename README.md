@@ -9,4 +9,4 @@ Các thao tác trên **Trie** bao gồm:
 
 ## Cấu trúc cây
 
-![alt text](https://imgur.com/gZNzUnJ)
+![graph (1)](https://github.com/LeNguyenAnhKhoa/Trie/assets/81629306/3458d193-d14b-4e89-9bf5-7b6aac9d9286)
