@@ -9,6 +9,4 @@ Các thao tác trên **Trie** bao gồm:
 
 ## Cấu trúc cây
 
-<center>
-<img src = "https://imgur.com/gZNzUnJ">
-</center>
+![alt text](https://imgur.com/gZNzUnJ)
