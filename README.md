@@ -1,4 +1,4 @@
-## Giới thiệu
+# Giới thiệu
 
 **Trie** là một cấu trúc dữ liệu dạng cây được dùng để lưu trữ và xử lý một tập các xâu. Do tính chất dễ hiểu và dễ cài đặt nên **Trie** được sử dụng rất phổ biến hiện nay.
 
@@ -7,7 +7,7 @@ Các thao tác trên **Trie** bao gồm:
 - Xóa 1 xâu khỏi tập hợp
 - Kiểm tra xâu có nằm trong tập hợp không
 
-## Cấu trúc cây
+# Cấu trúc cây
 
 <center>
 <img src = "https://i.imgur.com/gZNzUnJ.png">
@@ -21,7 +21,7 @@ Trong **Trie**, mỗi cạnh được gán một kí tự và đường đi từ
 
 Gọi `child(u, c)` là đỉnh con của $u$ được nối bằng cạnh có kí tự $c$, hoặc bằng $NULL$ nếu không tồn tại đỉnh con. Ta chỉ cần lưu mảng `child` với mỗi đỉnh để duy trì cấu trúc của **Trie**. Trong hình trên `child(1, 'b') = 2`, `child(5, 'b') = -1`, `child(5, 'a') = 7`.
 
-## Cài đặt
+# Cài đặt
 
 Để tối ưu cho thao tác **tìm xâu** và thao tác **xóa xâu**, với mỗi đỉnh ngoài mảng `child` ta cần lưu thêm 2 biến:
 - `cnt(u)`: số lượng xâu có tiền tố tại đỉnh $u$.
