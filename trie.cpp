@@ -16,6 +16,12 @@ struct Trie{
     };
 
     void add_string(string s){
+/*
+        Parameters
+        ----------
+        s: str
+            input string
+*/
         Node* p = root;
         for (auto f : s){
             int c = f - 'a';
@@ -27,6 +33,16 @@ struct Trie{
     }
 
     bool find_string(string s){
+/*
+        Check if the string s in Trie
+        Parameters
+        ----------
+        s: str
+            input string
+
+        Returns
+        True or False
+*/
         Node* p = root;
         for (auto f : s){
             int c = f - 'a';
@@ -37,6 +53,19 @@ struct Trie{
     }
 
     bool delete_(Node* p, string& s, int i){
+/*
+        delete string s
+        Parameters
+        ----------
+        p: Node pointer 
+            pointer of current vertex
+        s: str
+            input string
+        i: int
+            the current word is s[i]
+        Returns
+        True or False: Is the next vertex deleted
+*/
         if(i != SZ(s)){
             int c = s[i] - 'a';
             bool deleted = delete_(p->child[c], s, i + 1);
@@ -55,6 +84,13 @@ struct Trie{
     }
     
     void delete_string(string s) {
+/*
+        delete string s
+        Parameters
+        ----------
+        s: str
+            input string
+*/
         if(find_string(s) == false)return;
 
         delete_(root, s, 0);
