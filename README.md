@@ -1,4 +1,11 @@
-# Giới thiệu
+# Danh mục nội dung
+- [I. GIỚI THIỆU](#i-giới-thiệu)
+- [II. CẤU TRÚC CÂY](#ii-cấu-trúc-cây)
+- [III. CÀI ĐẶT](#iii-cài-đặt)
+- [IV. ỨNG DỤNG](#iv-ứng-dụng)
+    - [1. Bài toán 1](#1-bài-toán-1)
+    - [2. Bài toán 2](#2-bài-toán-2)
+# I. GIỚI THIỆU
 
 **Trie** là một cấu trúc dữ liệu dạng cây được dùng để lưu trữ và xử lý một tập các xâu. Do tính chất dễ hiểu và dễ cài đặt nên **Trie** được sử dụng rất phổ biến hiện nay.
 
@@ -7,7 +14,7 @@ Các thao tác trên **Trie** bao gồm:
 - Xóa 1 xâu khỏi tập hợp
 - Kiểm tra xâu có nằm trong tập hợp không
 
-# Cấu trúc cây
+# II. CẤU TRÚC CÂY
 
 <center>
 <img src = "https://i.imgur.com/gZNzUnJ.png">
@@ -21,7 +28,7 @@ Trong **Trie**, mỗi cạnh được gán một kí tự và đường đi từ
 
 Gọi `child(u, c)` là đỉnh con của $u$ được nối bằng cạnh có kí tự $c$, hoặc bằng $NULL$ nếu không tồn tại đỉnh con. Ta chỉ cần lưu mảng `child` với mỗi đỉnh để duy trì cấu trúc của **Trie**. Trong hình trên `child(1, 'b') = 2`, `child(5, 'b') = -1`, `child(5, 'a') = 7`.
 
-# Cài đặt
+# III. CÀI ĐẶT
 
 Để tối ưu cho thao tác **tìm xâu** và thao tác **xóa xâu**, với mỗi đỉnh ngoài mảng `child` ta cần lưu thêm 2 biến:
 - `cnt(u)`: số lượng xâu có tiền tố tại đỉnh $u$.
@@ -212,13 +219,13 @@ struct Trie{
 
 </details>
 
-# Ứng dụng
+# IV. ỨNG DỤNG
 
 Trie tuy đơn giản nhưng lại có rất nhiều ứng dụng khác nhau. Ta sẽ đi qua các bài toán cụ thể để hiểu thêm về hiệu quả của CTDL này.
 
 **Lưu ý:** Các bạn có thể tải repo này về và làm vào file `main.cpp` của bài 1 và 2 sau đó chạy file `checker.cpp` để so sánh với đáp án.
 
-## Bài toán 1: 
+## 1. Bài toán 1: 
 
 **Đề bài**: Cho $n$ xâu kí tự. Tìm xâu kí tự có thứ tự từ điển thứ $k$.
 
@@ -282,7 +289,7 @@ string find_kth_string(int k) {
 ```
 </details>
 
-## Bài toán 2: 
+## 2. Bài toán 2: 
 **Đề bài**: Cho $n$ số nguyên dương và $q$ truy vấn, với mỗi truy vấn cho số nguyên dương $x$. Hãy tìm giá trị `xor` lớn nhất của x với 1 số trong $n$ số nguyên đã cho.
 
 ### Sample Input:
