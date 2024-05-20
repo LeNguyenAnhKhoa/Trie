@@ -5,7 +5,12 @@
 - [IV. ỨNG DỤNG](#iv-ứng-dụng)
     - [1. Bài toán 1](#1-bài-toán-1)
     - [2. Bài toán 2](#2-bài-toán-2)
+    - [3. Bài toán 3](#3-bài-toán-3-query-on-strings---codechef)
+    - [4. Bài toán 4](#4-bài-toán-4-voxor---vnspoj)
+- [V. Bài tập](#v-bài-tập-thêm)
 # I. GIỚI THIỆU
+
+Ngày nay, với sự phát triển của công nghệ thông tin, dữ liệu ngày càng trở nên khổng lồ và phức tạp. Việc quản lý và xử lý dữ liệu hiệu quả là một vấn đề quan trọng trong nhiều lĩnh vực khác nhau. Một trong những giải pháp hiệu quả cho vấn đề này là sử dụng cấu trúc dữ liệu **Trie**.
 
 **Trie** là một cấu trúc dữ liệu dạng cây được dùng để lưu trữ và xử lý một tập các xâu. Do tính chất dễ hiểu và dễ cài đặt nên **Trie** được sử dụng rất phổ biến hiện nay.
 
@@ -13,6 +18,9 @@ Các thao tác trên **Trie** bao gồm:
 - Thêm 1 xâu vào tập hợp
 - Xóa 1 xâu khỏi tập hợp
 - Kiểm tra xâu có nằm trong tập hợp không
+
+Ưu điểm: Tìm kiếm chuỗi nhanh chóng, thao tác hiệu quả và tiết kiệm bộ nhớ khi lưu trữ các chuỗi có chung tiền tố   
+
 
 # II. CẤU TRÚC CÂY
 
@@ -214,7 +222,7 @@ struct Trie{
 
         delete_(root, s, 0);
     }
-}
+};
 ```
 
 </details>
@@ -312,7 +320,7 @@ string find_kth_string(int k) {
 - Số $2$ có giá trị xor cao nhất là $7$ do `2^5 = 7`
 - Số $3$ có giá trị xor cao nhất là $6$ do `3^5 = 6`
 
-**Lời giải**:  Với mỗi số nguyên dương ta có thể biểu diễn ở dạng nhị phân 30 bit (đánh số từ 0 đến 29). Giả sử mỗi chuỗi bit là 1 xâu kí tự ta có thể xây dựng $trie$ trên tập các xâu.
+**Lời giải**:  Với mỗi số nguyên dương ta có thể biểu diễn ở dạng nhị phân 30 bit (đánh số từ 0 đến 29). Giả sử mỗi chuỗi bit là 1 xâu kí tự ta có thể xây dựng $trie$ trên tập các xâu. Ta dễ thấy được trie lúc này có dạng cây nhị phân.
 
 <center>
 <img width="647" alt="Capture" src="https://github.com/LeNguyenAnhKhoa/Trie/assets/81629306/1408b815-763d-40cd-a38c-5711d65d2322">
@@ -358,3 +366,175 @@ int max_xor(int x) {
 ```
 
 </details>
+
+## 3. Bài toán 3: [Query On Strings - CODECHEF](https://www.codechef.com/problems/NPLFLF)
+
+**Đề bài:** Cho $q$ truy vấn, mỗi truy vấn thuộc 1 trong 3 loại:
+- `q = 1`: Thêm xâu $s$ vào tập các xâu
+- `q = 2`: Kiểm tra xem có ít nhất $k$ xâu cùng có hậu tố chung độ dài $l$ hay không
+- `q = 3`: Xóa xâu khỏi tập hợp
+
+### Sample Input:
+```
+9
+1 aba
+1 accba
+2 2 2
+2 2 3
+1 aaaa
+1 ababa
+2 3 2
+3 1
+2 3 2
+```
+
+### Sample Output:
+```
+YES
+NO
+YES
+NO
+```
+
+**Lời giải:** 
+- Trước tiên ta cần đảo ngược các xâu lại, sau đó mới thêm vào Trie. Ta đã biết cách làm truy vấn `q = 1` và `q = 3`, đối với truy vấn `q = 2` ta chỉ cấn xét các đỉnh có `cnt >= k`. 
+- Nếu ta đi đến đỉnh nào có độ dài l ta sẽ kết thúc chương trình và trả về True ngược lại trả về False.
+
+```cpp
+bool get(Node* p, int k, int l) {
+/*
+    Check if there at least k strings have prefix length l
+    Parameters
+     ----------
+    k: int
+        minimum number of strings needed
+    l: int
+        length of strings
+    p: Node pointer
+        current Node pointer on Trie
+    Returns
+    ok: boolean
+        ok = 1: There at least k strings have prefix length l
+        ok = 0: There are no k strings have prefix length l
+*/
+    if(l == 0)return true;
+    bool ok = false;
+    for(int i = 0; i < 26; ++i){
+        if(p->child[i] != NULL && p->child[i]->cnt >= k){
+            ok |= get(p->child[i], k, l-1);
+            if(ok)break;
+        }
+    }
+    return ok;
+}
+```
+
+## 4. Bài toán 4: [VOXOR - VNSPOJ](https://oj.vnoi.info/problem/voxor)
+
+**Lời giải:** 
+- Trước tiên ta xây dựng trie dựa vào các bit như [Bài toán 2](#2-bài-toán-2). 
+- Xét truy vấn tìm số lớn thứ $k$. Khi duyệt trên cây ta ưu tiên đi qua đường số 1 trước. Nếu số lượng số trên đường số 1 quá ít ta giảm k đi và đi qua đường số 0. Với mỗi lần đi qua đường số 1 ta cộng res thêm `2^i`.
+
+```cpp
+int get_k_th(int k){
+/*
+    Find the k-largest number
+    -------------------------
+    Returns
+    res: int
+        k-largest number
+*/
+    Node* p = root;
+    int res = 0;
+    for(int i = 29; i >= 0; --i){
+        if(p->child[1] != NULL){
+            if(p->child[1]->cnt >= k){
+                p = p->child[1];
+                res |= 1 << i;
+                continue;
+            }
+            else{
+                k -= p->child[1]->cnt;
+                p = p->child[0];
+                continue;
+            }
+        }
+        p = p->child[0];
+    }
+    return res;
+}
+```
+
+- Đối với truy vấn xor tất cả với $x$, ta sẽ xor tất cả các giá trị của x lại. Ta lần lượt duyệt các bit của x, ta chỉ quan tâm đến các `bit = 1` vì khi đó giá trị mảng A sẽ thay đổi.
+- Nếu bit nào bằng 1 thì thay vì ưu tiên đường số 1 như trên, ta chỉ cần ưu tiên đường số 0 là được. 
+
+<details>
+
+<summary>Code</summary>
+
+```cpp
+int get(int k, int X){
+/*
+    Find the k-largest number
+    Parameters
+    X: int
+        xor of all number of query xor
+    ------------------------
+    Returns
+    res: int
+        k-largest number
+*/
+    Node* p = root;
+    int res = 0;
+    for(int i = 29; i >= 0; --i){
+        int j = X >> i & 1;
+        if(j){
+            if(p->child[0] != NULL){
+                if(p->child[0]->cnt >= k){
+                    p = p->child[0];
+                    res |= 1 << i;
+                    continue;
+                }
+                else{
+                    k -= p->child[0]->cnt;
+                    p = p->child[1];
+                    continue;
+                }
+            }
+            p = p->child[1];
+        }
+        else{
+            if(p->child[1] != NULL){
+                if(p->child[1]->cnt >= k){
+                    p = p->child[1];
+                    res |= 1 << i;
+                    continue;
+                }
+                else{
+                    k -= p->child[1]->cnt;
+                    p = p->child[0];
+                    continue;
+                }
+            }
+            p = p->child[0];
+        }
+    }
+    return res;
+}
+```
+
+</details>
+
+# V. Bài tập thêm
+
+[SPOJ - Ada and Indexing](https://www.spoj.com/problems/ADAINDEX/)
+
+[SPOJ - Try to complete](https://www.spoj.com/problems/TRYCOMP/)
+
+[Codeforces 948D](http://codeforces.com/problemset/problem/948/D)
+
+[VOJ – ORDERSET](http://vn.spoj.com/problems/ORDERSET/) (Khuyến khích làm bằng Trie dù chạy không đủ nhanh)
+
+[SPOJ - x-Xor It!](https://www.spoj.com/problems/XORX/)
+
+[VOJ – MEDIAN](https://vn.spoj.com/problems/MEDIAN/)
