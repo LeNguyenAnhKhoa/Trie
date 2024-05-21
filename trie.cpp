@@ -1,3 +1,5 @@
+#include <bits/stdc++.h>
+using namespace std;
 #define SZ(x) (int)((x).size())
 struct Trie{
     struct Node{
@@ -57,7 +59,7 @@ struct Trie{
         delete string s
         Parameters
         ----------
-        p: Node pointer 
+        p: Node pointer
             pointer of current vertex
         s: str
             input string
@@ -76,13 +78,13 @@ struct Trie{
         if(p != root){
             p->cnt--;
             if(p->cnt == 0) {
-                delete(p); 
+                delete(p);
                 return true;
             }
         }
         return false;
     }
-    
+
     void delete_string(string s) {
 /*
         delete string s
@@ -95,4 +97,18 @@ struct Trie{
 
         delete_(root, s, 0);
     }
-};
+}trie;
+string s, ss;
+int main(){
+    freopen("trie.inp", "r", stdin);
+    freopen("trie.out", "w", stdout);
+    while(cin >> s >> ss){
+        if(s[0] == 'I')trie.add_string(ss);
+        else if(s[0] == 'D')trie.delete_string(ss);
+        else{
+            int ok = trie.find_string(ss);
+            if(ok)cout << "Xau '" << ss << "' co trong tap hop" << endl;
+            else cout << "Xau '" << ss << "' khong co trong tap hop" << endl;
+        }
+    }
+}
